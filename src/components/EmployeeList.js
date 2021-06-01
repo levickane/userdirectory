@@ -29,7 +29,16 @@ class EmployeeList extends Component {
         <input onChange={this.handleInputChange} placeholder="start typing" />
         <ul>
           {this.state.randomEmployees.map((employee) => (
-            <EmployeeCard />
+            <EmployeeCard
+              name={(employee.name.first, employee.name.last)}
+              location={
+                (employee.location.city,
+                employee.location.state,
+                employee.location.country)
+              }
+              phone={employee.phone}
+              picture={employee.picture.thumbnail}
+            />
           ))}
         </ul>
       </div>

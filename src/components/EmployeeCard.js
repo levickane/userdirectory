@@ -1,9 +1,14 @@
 import React from 'react';
 
-function EmployeeCard() {
+function EmployeeCard({ name, location, phone, picture }) {
   return (
     <div>
-      <li className="card">this is an employee card</li>
+      <li className="card border border-dark">
+        {name}, {location} || {phone} ||
+        <span>
+          <img src={picture} />
+        </span>
+      </li>
     </div>
   );
 }
