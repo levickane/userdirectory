@@ -21,15 +21,34 @@ class EmployeeList extends Component {
     console.log(value);
     this.setState({ searchEmployee: value });
   };
+  handleSearchFilter = () => {
+    // this.randomEmployees.filter((input) => {
+    //   this.state.randomEmployees.forEach((employee) => {
+    //     //if employee.name contains whatevers in searchEmployee
+    //     //then this.setState({randomEmployees: employee})
+    //   });
+    // });
+    //  ;
+    console.log(this.state.randomEmployees);
+    const filteredEmployees = this.state.randomEmployees.filter((employee) => {
+      console.log(employee);
+      employee.name.first.includes(this.searchEmployee);
+    });
+    this.setState({ randomEmployees: filteredEmployees });
+  };
 
   render() {
     return (
       <div>
         <label>Search Here</label>
-        <input onChange={this.handleInputChange} placeholder="start typing" />
+        <input
+          onChange={(this.handleInputChange, this.handleSearchFilter)}
+          placeholder="start typing"
+        />
         <ul>
           {this.state.randomEmployees.map((employee) => (
             <EmployeeCard
+              key={employee.login.uuid}
               name={(employee.name.first, employee.name.last)}
               location={
                 (employee.location.city,

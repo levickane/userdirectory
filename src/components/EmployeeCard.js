@@ -6,7 +6,7 @@ function EmployeeCard({ name, location, phone, picture }) {
       <li className="card border border-dark">
         {name}, {location} || {phone} ||
         <span>
-          <img src={picture} />
+          <img src={picture} alt="profile" />
         </span>
       </li>
     </div>
