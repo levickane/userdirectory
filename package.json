@@ -1,5 +1,6 @@
 {
   "name": "userdirectory",
+  "homepage": "https://levickane.github.io/userdirectory",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,4 +1,4 @@
-# userdirectory
+# User Directory
 
 ## Description
 
