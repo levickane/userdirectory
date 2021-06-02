@@ -5,61 +5,64 @@ import API from '../utils/API';
 class EmployeeList extends Component {
   state = {
     randomEmployees: [],
-    searchEmployee: ''
+    searchEmployee: '',
+    filteredEmployees: []
   };
 
   componentDidMount() {
     API.getRandomUsers().then((res) => {
       console.log('setting state', res);
       this.setState({ randomEmployees: res.data.results });
+      this.setState({ filteredEmployees: res.data.results });
     });
-    console.log('the state is set', this.randomEmployees);
   }
 
   handleInputChange = (event) => {
     const value = event.target.value;
     console.log(value);
-    this.setState({ searchEmployee: value });
-  };
-  handleSearchFilter = () => {
-    // this.randomEmployees.filter((input) => {
-    //   this.state.randomEmployees.forEach((employee) => {
-    //     //if employee.name contains whatevers in searchEmployee
-    //     //then this.setState({randomEmployees: employee})
-    //   });
-    // });
-    //  ;
-    console.log(this.state.randomEmployees);
-    const filteredEmployees = this.state.randomEmployees.filter((employee) => {
-      console.log(employee);
-      employee.name.first.includes(this.searchEmployee);
-    });
-    this.setState({ randomEmployees: filteredEmployees });
+    if (value) {
+      const newlist = this.state.randomEmployees.filter((employee) => {
+        console.log('this the employee', employee);
+        return employee.name.first.includes(value);
+      });
+      console.log('newlist here', newlist);
+      this.setState({ filteredEmployees: newlist });
+    } else {
+      this.setState({ filteredEmployees: this.state.randomEmployees });
+    }
   };
 
   render() {
     return (
       <div>
         <label>Search Here</label>
-        <input
-          onChange={(this.handleInputChange, this.handleSearchFilter)}
-          placeholder="start typing"
-        />
-        <ul>
-          {this.state.randomEmployees.map((employee) => (
-            <EmployeeCard
-              key={employee.login.uuid}
-              name={(employee.name.first, employee.name.last)}
-              location={
-                (employee.location.city,
-                employee.location.state,
-                employee.location.country)
-              }
-              phone={employee.phone}
-              picture={employee.picture.thumbnail}
-            />
-          ))}
-        </ul>
+        <input onChange={this.handleInputChange} placeholder="start typing" />
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Picture</th>
+              <th scope="col">Name</th>
+              <th scope="col">Location</th>
+              <th scope="col">Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.filteredEmployees.map((employee) => (
+              <EmployeeCard
+                key={employee.login.uuid}
+                firstName={employee.name.first}
+                lastName={employee.name.last}
+                location={
+                  (employee.location.city,
+                  employee.location.state,
+                  employee.location.country)
+                }
+                phone={employee.phone}
+                picture={employee.picture.thumbnail}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }

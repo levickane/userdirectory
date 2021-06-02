@@ -1,15 +1,17 @@
 import React from 'react';
 
-function EmployeeCard({ name, location, phone, picture }) {
+function EmployeeCard({ firstName, lastName, location, phone, picture }) {
   return (
-    <div>
-      <li className="card border border-dark">
-        {name}, {location} || {phone} ||
-        <span>
-          <img src={picture} alt="profile" />
-        </span>
-      </li>
-    </div>
+    <tr>
+      <th scope="row">
+        <img src={picture} alt="profile" />
+      </th>
+      <td>
+        {firstName} {lastName}
+      </td>
+      <td>{location}</td>
+      <td>{phone}</td>
+    </tr>
   );
 }
 
